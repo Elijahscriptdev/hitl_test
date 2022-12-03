@@ -6,6 +6,35 @@ import { Link } from "react-router-dom";
 const Countries = () => {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const handleSearch = (e) => {
+    const search = e.target.value;
+    // console.log("search", search);
+    if (search) {
+      const filteredCountries = countries.filter((country) => {
+        return country.name.common.toLowerCase().includes(search.toLowerCase());
+      });
+      setCountries(filteredCountries);
+    } else {
+      getCountries();
+    }
+  };
+
+  const handleFilter = async (e) => {
+    const filter = e.target.value;
+    // console.log("filter", filter);
+    try {
+      setLoading(true);
+      const response = await axios.get(`https://restcountries.com/v3.1/region/${filter}`);
+      console.log("response", response?.data);
+      setLoading(false);
+      setCountries(response?.data);
+    } catch (error) {
+      console.log("error", error);
+      setLoading(false);
+    }
+  };
+
   const getCountries = async () => {
     try {
       setLoading(true);
@@ -28,25 +57,51 @@ const Countries = () => {
       {loading ? (
         <p>loading...</p>
       ) : (
-        <div className='wrapper'>
-          {countries?.map((country) => (
-            <Link to={`/country/${country?.cca3}`} key={country?.cca3}>
-              <div key={country?.name?.common} className='card'>
-                <div className='card-img'>
-                  <img src={country?.flags?.png} alt={country?.name?.common} />
+        <>
+          <div
+            className='search'
+            style={{
+              margin: "30px auto",
+            }}
+          >
+            <input
+              type='text'
+              placeholder='Search for a country...'
+              onChange={(e) => handleSearch(e)}
+            />
+
+            <select name='region' id='region' onChange={(e) => handleFilter(e)}>
+              <option value=''>Filter by Region</option>
+              <option value='Africa'>Africa</option>
+              <option value='Americas'>Americas</option>
+              <option value='Asia'>Asia</option>
+              <option value='Europe'>Europe</option>
+              <option value='Oceania'>Oceania</option>
+            </select>
+          </div>
+          <div className='wrapper'>
+            {countries?.map((country) => (
+              <Link to={`/country/${country?.cca3}`} key={country?.cca3}>
+                <div key={country?.name?.common} className='card'>
+                  <div className='card-img'>
+                    <img
+                      src={country?.flags?.png}
+                      alt={country?.name?.common}
+                    />
+                  </div>
+                  <div className='card-body'>
+                    <p>{country?.name?.common}</p>
+                    <p>{country?.capital}</p>
+                    <p>{country?.region}</p>
+                    <p>{country?.subregion}</p>
+                    <p>{country?.population}</p>
+                    <p>{country?.languages?.eng}</p>
+                  </div>
                 </div>
-                <div className='card-body'>
-                  <p>{country?.name?.common}</p>
-                  <p>{country?.capital}</p>
-                  <p>{country?.region}</p>
-                  <p>{country?.subregion}</p>
-                  <p>{country?.population}</p>
-                  <p>{country?.languages?.eng}</p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        </>
       )}
     </>
   );
