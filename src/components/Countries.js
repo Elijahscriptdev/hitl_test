@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import "./Countries.scss";
 import { Link } from "react-router-dom";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = (e) => {
-    const search = e.target.value;
-    // console.log("search", search);
-    if (search) {
+  const handleSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      const search = e.target.value;
       const filteredCountries = countries.filter((country) => {
         return country.name.common.toLowerCase().includes(search.toLowerCase());
       });
-      setCountries(filteredCountries);
-    } else {
-      getCountries();
-    }
-  };
+      setSearchResults(filteredCountries);
+    },
+    [countries]
+  );
 
   const handleFilter = async (e) => {
     const filter = e.target.value;
-    // console.log("filter", filter);
     try {
       setLoading(true);
-      const response = await axios.get(`https://restcountries.com/v3.1/region/${filter}`);
+      const response = await axios.get(
+        `https://restcountries.com/v3.1/region/${filter}`
+      );
       console.log("response", response?.data);
       setLoading(false);
       setCountries(response?.data);
@@ -42,6 +43,7 @@ const Countries = () => {
       console.log("response", response?.data);
       setLoading(false);
       setCountries(response?.data);
+      setSearchResults(response?.data);
     } catch (error) {
       console.log("error", error);
       setLoading(false);
@@ -62,6 +64,8 @@ const Countries = () => {
             className='search'
             style={{
               margin: "30px auto",
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
             <input
@@ -80,7 +84,7 @@ const Countries = () => {
             </select>
           </div>
           <div className='wrapper'>
-            {countries?.map((country) => (
+            {searchResults?.map((country) => (
               <Link to={`/country/${country?.cca3}`} key={country?.cca3}>
                 <div key={country?.name?.common} className='card'>
                   <div className='card-img'>
