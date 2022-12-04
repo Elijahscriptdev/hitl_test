@@ -36,21 +36,21 @@ const Countries = () => {
     }
   };
 
-  const getCountries = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get("https://restcountries.com/v3.1/all");
-      console.log("response", response?.data);
-      setLoading(false);
-      setCountries(response?.data);
-      setSearchResults(response?.data);
-    } catch (error) {
-      console.log("error", error);
-      setLoading(false);
-    }
-  };
-
+  
   useEffect(() => {
+    const getCountries = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://restcountries.com/v3.1/all");
+        console.log("response", response?.data);
+        setLoading(false);
+        setCountries(response?.data);
+        setSearchResults(response?.data);
+      } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+      }
+    };
     getCountries();
   }, []);
 

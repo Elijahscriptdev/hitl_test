@@ -29,7 +29,7 @@ const CountryDetails = () => {
     if (id) {
       getCountry();
     }
-  }, [id]);
+  }, []);
 
   //   console.log("nativeName", country);
 
