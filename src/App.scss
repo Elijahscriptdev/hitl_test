@@ -1,3 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .App {
   padding: 30px 60px;
+
+  @media (max-width: 768px) {
+    padding: 30px 20px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+#light {
+  background-color: #fff;
+  color: #000;
+}
+
+#light .card {
+  .card-body {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+#light .search{
+  background-color: #fff;
+  color: #000;
+}
+
+#dark {
+  background-color: seagreen;
+  color: #fff;
+}
+
+#dark .card {
+  .card-body {
+    background-color: rgba(34, 132, 31, 0);
+    color: #fff;
+  }
+}
+
+#dark .search{
+  background-color: seagreen;
+  color: #fff;
 }

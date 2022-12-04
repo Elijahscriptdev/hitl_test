@@ -94,12 +94,11 @@ const Countries = () => {
                     />
                   </div>
                   <div className='card-body'>
-                    <p>{country?.name?.common}</p>
-                    <p>{country?.capital}</p>
-                    <p>{country?.region}</p>
-                    <p>{country?.subregion}</p>
-                    <p>{country?.population}</p>
-                    <p>{country?.languages?.eng}</p>
+                    <h1>{country?.name?.common}</h1>
+                    <p>Population: {country?.population}</p>
+                    <p>Region: {country?.region}</p>
+                    <p>Sub Region{country?.subregion}</p>
+                    <p>Capital: {country?.capital}</p>
                   </div>
                 </div>
               </Link>

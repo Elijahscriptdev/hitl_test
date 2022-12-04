@@ -9,7 +9,7 @@ const CountryDetails = () => {
 
   //get the country id from the url
   const { id } = useParams();
-  console.log("id", id);
+//   console.log("id", id);
   const getCountry = async () => {
     try {
       setLoading(true);
@@ -31,7 +31,7 @@ const CountryDetails = () => {
     }
   }, [id]);
 
-  console.log("nativeName", country);
+//   console.log("nativeName", country);
 
   return (
     <div>
@@ -40,7 +40,7 @@ const CountryDetails = () => {
       ) : (
         <>
           <div className="cta">
-            <Link to='/'>Bank</Link>
+            <Link to='/'>Back</Link>
           </div>
           <div className='card-details'>
             <div className='card-img'>
