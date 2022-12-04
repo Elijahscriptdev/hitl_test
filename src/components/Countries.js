@@ -52,7 +52,7 @@ const Countries = () => {
 
   useEffect(() => {
     getCountries();
-  }, []);
+  }, [getCountries]);
 
   return (
     <>
