@@ -29,7 +29,7 @@ const Countries = () => {
       );
       console.log("response", response?.data);
       setLoading(false);
-      setCountries(response?.data);
+      setSearchResults(response?.data);
     } catch (error) {
       console.log("error", error);
       setLoading(false);
