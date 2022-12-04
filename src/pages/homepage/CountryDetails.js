@@ -9,7 +9,7 @@ const CountryDetails = () => {
 
   //get the country id from the url
   const { id } = useParams();
-//   console.log("id", id);
+  //   console.log("id", id);
   const getCountry = async () => {
     try {
       setLoading(true);
@@ -29,9 +29,9 @@ const CountryDetails = () => {
     if (id) {
       getCountry();
     }
-  }, [id, getCountry]);
+  }, [id]);
 
-//   console.log("nativeName", country);
+  //   console.log("nativeName", country);
 
   return (
     <div>
@@ -39,7 +39,7 @@ const CountryDetails = () => {
         <p>loading...</p>
       ) : (
         <>
-          <div className="cta">
+          <div className='cta'>
             <Link to='/'>Back</Link>
           </div>
           <div className='card-details'>
